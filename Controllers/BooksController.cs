@@ -14,11 +14,7 @@ namespace LibApp.Controllers
         {
             var firstBook = new Book { Name = "English dictionary" };
 
-            //ViewData["Book"] = firstBook;
-            ViewBag.Book = firstBook;
-
-
-            return View();
+            return View(firstBook);
         }
 
         public IActionResult Edit(int id)
