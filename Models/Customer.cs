@@ -1,7 +1,11 @@
-﻿namespace LibApp.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace LibApp.Models
 {
     public class Customer
     {
+        [Required]
+        [StringLength(255)]
         public int Id { get; set; }
         public string Name { get; set; }
         
