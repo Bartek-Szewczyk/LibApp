@@ -3,14 +3,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LibApp.Data;
 using LibApp.Models;
 using LibApp.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibApp.Controllers
 {
     public class BooksController : Controller
     {
-        //GET /Books/Random
+        private readonly ApplicationDbContext _context;
+
+        public BooksController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
         public IActionResult Random()
         {
             var firstBook = new Book { Name = "English dictionary" };
@@ -37,8 +44,18 @@ namespace LibApp.Controllers
 
         public IActionResult Index()
         {
-            var books = GetBooks();
+            var books = _context.Book
+                .Include(b => b.Genre)
+                .ToList();
             return View(books);
+        }
+
+        public IActionResult Details(int id)
+        {
+            var book = _context.Book
+                .Include(b => b.Genre)
+                .SingleOrDefault(b => b.Id == id);
+            return View(book);
         }
 
         [Route("books/released/{year:regex(^\\d{{4}}$)}/{month:range(1,12)}")]

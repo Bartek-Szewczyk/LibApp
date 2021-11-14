@@ -6,7 +6,16 @@ namespace LibApp.Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-
+            migrationBuilder.AlterColumn<string>(
+                name: "Name",
+                table: "Customers",
+                type: "nvarchar(255)",
+                maxLength: 255,
+                nullable: false,
+                defaultValue: "",
+                oldClrType: typeof(string),
+                oldType: "nvarchar(max)",
+                oldNullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
